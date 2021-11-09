@@ -1,28 +1,33 @@
 import { useEffect, useState } from "react";
 
-import { refElement, IEntriy } from "./type";
+import { RefElement, ScrollSpyEntry, ScrollSpyParams, ScrollSpyActions } from "./type";
 import { throttle } from "../utils/throttle";
 
-export interface scrollSpyParams {
-  offsetPx?: number;
-  throttleMs?: number;
-}
+export type useScrollSpyReturns = [ScrollSpyEntry, ScrollSpyActions]
 
+/**
+ * @param ScrollSpyParams Optional params
+ * @param ScrollSpyParams.offsetPx Distance from Y coordinate of the base (px)
+ * @param ScrollSpyParams.throttleMs Interval of update processing (ms)
+ * @returns [ activeEntry, actions ] - Two return values are returned as an array
+ * @returns activeEntry - DOM element activated based on scroll position (only one)
+ * @returns actions - Actions are used to control registered DOM elements
+ */
 export const useScrollSpy = ({
   offsetPx = 0,
   throttleMs = 100,
-}: scrollSpyParams) => {
-  const [activeEntriy, setActiveEntriy] = useState<IEntriy>(undefined);
-  const [entries, setEntries] = useState<{ [key: string]: refElement }>({});
+}: ScrollSpyParams = {}): useScrollSpyReturns => {
+  const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry>(undefined);
+  const [entries, setEntries] = useState<{ [key: string]: RefElement }>({});
 
-  const setScrollSpyEntry = (key: string, entriy: refElement): void => {
+  const setScrollSpyEntry = (key: string, entry: RefElement): void => {
     setEntries((prevState) => ({
       ...prevState,
-      [key]: entriy,
+      [key]: entry,
     }));
   };
 
-  const deleteScrollSpyEntry = (key: string): void => {
+  const deleteScrollSpyEntry: = (key: string): void => {
     const deletedEntries = { ...entries };
     delete deletedEntries[key];
     setEntries(deletedEntries);
@@ -32,7 +37,7 @@ export const useScrollSpy = ({
     setEntries({});
   };
 
-  const updateActiveEntriy = () => {
+  const updateActiveEntry = () => {
     const entryKeys = Object.keys(entries);
 
     const activeKey = entryKeys.reduce((prevActiveKey, key) => {
@@ -51,24 +56,25 @@ export const useScrollSpy = ({
       return isHigherThanPrev ? key : prevActiveKey;
     });
 
-    setActiveEntriy({
+    setActiveEntry({
       key: activeKey,
       value: entries[activeKey],
     });
   };
 
   useEffect(() => {
-    const InvokeUpdate = throttle(updateActiveEntriy, throttleMs);
+    const InvokeUpdate = throttle(updateActiveEntry, throttleMs);
     window.addEventListener("scroll", InvokeUpdate);
     return () => {
       window.removeEventListener("scroll", InvokeUpdate);
     };
   }, [entries]);
 
-  return {
-    activeEntriy,
-    setScrollSpyEntry,
-    deleteScrollSpyEntry,
-    resetScrollSpyEntries,
+  const actions: ScrollSpyActions = {
+    set: setScrollSpyEntry,
+    delete: deleteScrollSpyEntry,
+    reset: resetScrollSpyEntries,
   };
+
+  return [activeEntry, actions];
 };
