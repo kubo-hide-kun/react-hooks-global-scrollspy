@@ -13,7 +13,10 @@ import { ScrollSpyParams } from "./type";
 export const createScrollSpyContext = ({
   offsetPx = 0,
   throttleMs = 100,
-}: ScrollSpyParams = {}): [FC<{}>, () => useScrollSpyReturns] => {
+}: ScrollSpyParams = {}): {
+  ScrollSpyProvider: FC<{}>;
+  useScrollSpyContext: () => useScrollSpyReturns;
+} => {
   const [activeEntry, actions] = useScrollSpy({ offsetPx, throttleMs });
   const ScrollSpyContext = createContext<useScrollSpyReturns>([
     activeEntry,
@@ -30,5 +33,5 @@ export const createScrollSpyContext = ({
 
   const useScrollSpyContext = () => useContext(ScrollSpyContext);
 
-  return [ScrollSpyProvider, useScrollSpyContext];
+  return { ScrollSpyProvider, useScrollSpyContext };
 };
