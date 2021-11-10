@@ -4,7 +4,8 @@
   "description": "React Hook for managing navigation by scroll position ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
     "hooks-api-react"
   ],
   "author": "Hideya Kubota",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kubo-hide-kun/react-hooks-global-scrollspy/issues"
   },
