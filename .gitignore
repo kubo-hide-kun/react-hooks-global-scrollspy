@@ -9,3 +9,6 @@ package-lock.json
 yarn.lock
 /dist
 /demo/dist
+
+# Build
+lib/

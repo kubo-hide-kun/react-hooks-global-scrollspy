@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "ESNEXT",
     "module": "ESNext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationDir": "./lib/typescript",
     "outDir": "./lib",
