@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { RefElement, ScrollSpyEntry, ScrollSpyParams, ScrollSpyActions } from "./type";
+import {
+  RefElement,
+  ScrollSpyEntry,
+  ScrollSpyParams,
+  ScrollSpyActions,
+} from "./type";
 import { throttle } from "../utils/throttle";
-
-export type useScrollSpyReturns = [ScrollSpyEntry | undefined, ScrollSpyActions]
 
 /**
  * @param ScrollSpyParams Optional params
@@ -16,8 +19,8 @@ export type useScrollSpyReturns = [ScrollSpyEntry | undefined, ScrollSpyActions]
 export const useScrollSpy = ({
   offsetPx = 0,
   throttleMs = 100,
-}: ScrollSpyParams = {}): useScrollSpyReturns => {
-  const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry | undefined>();
+}: ScrollSpyParams = {}): [ScrollSpyEntry | null, ScrollSpyActions] => {
+  const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry | null>(null);
   const [entries, setEntries] = useState<{ [key: string]: RefElement }>({});
 
   const setScrollSpyEntry = (key: string, entry: RefElement): void => {
@@ -55,6 +58,11 @@ export const useScrollSpy = ({
       const isHigherThanPrev = entryDomRect.top >= prevEntryDomRect.top;
       return isHigherThanPrev ? key : prevActiveKey;
     });
+
+    if (!!activeKey) {
+      setActiveEntry(null);
+      return;
+    }
 
     setActiveEntry({
       key: activeKey,

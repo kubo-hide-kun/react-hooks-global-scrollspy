@@ -1,6 +1,6 @@
 import { FC, createContext, useContext } from "react";
-import { useScrollSpy, useScrollSpyReturns } from "./useScrollSpy";
-import { ScrollSpyParams } from "./type";
+import { useScrollSpy } from "./useScrollSpy";
+import { ScrollSpyActions, ScrollSpyEntry, ScrollSpyParams } from "./type";
 
 /**
  * @param ScrollSpyParams Optional params
@@ -15,23 +15,25 @@ export const createScrollSpyContext = ({
   throttleMs = 100,
 }: ScrollSpyParams = {}): {
   Provider: FC<{}>;
-  useScrollSpyContext: () => useScrollSpyReturns;
+  getActiveEntry: () => ScrollSpyEntry | null;
+  getActions: () => ScrollSpyActions;
 } => {
   const [activeEntry, actions] = useScrollSpy({ offsetPx, throttleMs });
-  const ScrollSpyContext = createContext<useScrollSpyReturns>([
+  const ScrollSpyContext = createContext({
     activeEntry,
     actions,
-  ]);
+  });
 
   const Provider: FC = ({ children }) => {
     return (
-      <ScrollSpyContext.Provider value={[activeEntry, actions]}>
+      <ScrollSpyContext.Provider value={{ activeEntry, actions }}>
         {children}
       </ScrollSpyContext.Provider>
     );
   };
 
-  const useScrollSpyContext = () => useContext(ScrollSpyContext);
+  const getActiveEntry = () => useContext(ScrollSpyContext).activeEntry;
+  const getActions = () => useContext(ScrollSpyContext).actions;
 
-  return { Provider, useScrollSpyContext };
+  return { Provider, getActiveEntry, getActions };
 };
