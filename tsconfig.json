@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "dom"],
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"]
+}

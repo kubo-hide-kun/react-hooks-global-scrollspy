@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { RefElement, ScrollSpyEntry, ScrollSpyParams, ScrollSpyActions } from "./type";
 import { throttle } from "../utils/throttle";
 
-export type useScrollSpyReturns = [ScrollSpyEntry, ScrollSpyActions]
+export type useScrollSpyReturns = [ScrollSpyEntry | undefined, ScrollSpyActions]
 
 /**
  * @param ScrollSpyParams Optional params
@@ -17,7 +17,7 @@ export const useScrollSpy = ({
   offsetPx = 0,
   throttleMs = 100,
 }: ScrollSpyParams = {}): useScrollSpyReturns => {
-  const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry>(undefined);
+  const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry | undefined>();
   const [entries, setEntries] = useState<{ [key: string]: RefElement }>({});
 
   const setScrollSpyEntry = (key: string, entry: RefElement): void => {
