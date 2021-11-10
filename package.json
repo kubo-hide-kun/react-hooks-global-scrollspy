@@ -2,7 +2,6 @@
   "name": "react-hooks-global-scrollspy",
   "version": "1.0.5",
   "description": "React Hook for managing navigation by scroll position ",
-  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
@@ -24,6 +23,15 @@
     "url": "https://github.com/kubo-hide-kun/react-hooks-global-scrollspy/issues"
   },
   "homepage": "https://github.com/kubo-hide-kun/react-hooks-global-scrollspy#readme",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
+  "files": [
+    "/src",
+    "/lib",
+    "/README.md",
+    "/LICENSE"
+  ],
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0"
   },

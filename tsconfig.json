@@ -1,22 +1,16 @@
 {
+  "include": ["src/"],
   "compilerOptions": {
-    "rootDirs": ["src"],
-    "outDir": "dist",
-    "target": "ESNext",
+    "target": "ESNEXT",
     "module": "ESNext",
-    "lib": ["ESNext", "dom"],
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "checkJs": false,
-    "skipLibCheck": true,
+    "jsx": "react",
     "declaration": true,
     "declarationDir": "./lib/typescript",
-    "declarationMap": false,
-    "sourceMap": false,
+    "outDir": "./lib",
     "strict": true,
-    "strictPropertyInitialization": false,
     "moduleResolution": "node",
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }
