@@ -14,7 +14,7 @@ export const createScrollSpyContext = ({
   offsetPx = 0,
   throttleMs = 100,
 }: ScrollSpyParams = {}): {
-  ScrollSpyProvider: FC<{}>;
+  Provider: FC<{}>;
   useScrollSpyContext: () => useScrollSpyReturns;
 } => {
   const [activeEntry, actions] = useScrollSpy({ offsetPx, throttleMs });
@@ -23,7 +23,7 @@ export const createScrollSpyContext = ({
     actions,
   ]);
 
-  const ScrollSpyProvider: FC = ({ children }) => {
+  const Provider: FC = ({ children }) => {
     return (
       <ScrollSpyContext.Provider value={[activeEntry, actions]}>
         {children}
@@ -33,5 +33,5 @@ export const createScrollSpyContext = ({
 
   const useScrollSpyContext = () => useContext(ScrollSpyContext);
 
-  return { ScrollSpyProvider, useScrollSpyContext };
+  return { Provider, useScrollSpyContext };
 };
