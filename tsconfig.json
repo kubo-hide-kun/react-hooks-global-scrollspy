@@ -10,6 +10,7 @@
     "checkJs": false,
     "skipLibCheck": true,
     "declaration": true,
+    "declarationDir": "./lib/typescript",
     "declarationMap": false,
     "sourceMap": false,
     "strict": true,
