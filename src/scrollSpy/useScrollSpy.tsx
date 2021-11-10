@@ -27,7 +27,7 @@ export const useScrollSpy = ({
     }));
   };
 
-  const deleteScrollSpyEntry: = (key: string): void => {
+  const deleteScrollSpyEntry = (key: string): void => {
     const deletedEntries = { ...entries };
     delete deletedEntries[key];
     setEntries(deletedEntries);

@@ -18,3 +18,6 @@ or
 ```
 $ yarn add react-hooks-global-scrollspy
 ```
+
+## License
+[MIT © kubo-hide-kun](./LICENSE)
