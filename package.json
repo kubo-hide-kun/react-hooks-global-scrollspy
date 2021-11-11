@@ -1,9 +1,9 @@
 {
   "name": "react-hooks-global-scrollspy",
-  "version": "1.0.11",
+  "version": "1.0.10",
   "description": "React Hook for managing navigation by scroll position ",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --sourcemap",
     "prepublishOnly": "npm run build"
   },
   "repository": {
