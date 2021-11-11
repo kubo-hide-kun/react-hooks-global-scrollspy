@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "example-vite",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-hooks-global-scrollspy": "^1.0.0"
+    "react-hooks-global-scrollspy": "^1.0.11"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
