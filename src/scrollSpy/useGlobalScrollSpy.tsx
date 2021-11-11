@@ -6,17 +6,17 @@ import { ScrollSpyActions, ScrollSpyEntry, ScrollSpyParams } from "./type";
  * @param ScrollSpyParams Optional params
  * @param ScrollSpyParams.offsetPx Distance from Y coordinate of the base (px)
  * @param ScrollSpyParams.throttleMs Interval of update processing (ms)
- * @returns [ ScrollSpyProvider, useScrollSpyContext ] - Two return values are returned as an array
  * @returns ScrollSpyProvider - This Provider components provides useScrollSpy return value descendants of this Provider
- * @returns useScrollSpyContext - Function is
+ * @returns activeEntry - DOM element activated based on scroll position (only one)
+ * @returns actions - Actions are used to control registered DOM elements
  */
-export const createScrollSpyContext = ({
+export const useGlobalScrollSpy = ({
   offsetPx = 0,
   throttleMs = 100,
 }: ScrollSpyParams = {}): {
-  Provider: FC<{}>;
-  getActiveEntry: () => ScrollSpyEntry | null;
-  getActions: () => ScrollSpyActions;
+  ScrollSpyProvider: FC<{}>;
+  activeEntry: ScrollSpyEntry | null;
+  actions: ScrollSpyActions;
 } => {
   const [activeEntry, actions] = useScrollSpy({ offsetPx, throttleMs });
   const ScrollSpyContext = createContext({
@@ -24,7 +24,7 @@ export const createScrollSpyContext = ({
     actions,
   });
 
-  const Provider: FC = ({ children }) => {
+  const ScrollSpyProvider: FC = ({ children }) => {
     return (
       <ScrollSpyContext.Provider value={{ activeEntry, actions }}>
         {children}
@@ -32,8 +32,7 @@ export const createScrollSpyContext = ({
     );
   };
 
-  const getActiveEntry = () => useContext(ScrollSpyContext).activeEntry;
-  const getActions = () => useContext(ScrollSpyContext).actions;
+  const useScrollSpyContext = useContext(ScrollSpyContext);
 
-  return { Provider, getActiveEntry, getActions };
+  return { ScrollSpyProvider, ...useScrollSpyContext };
 };
