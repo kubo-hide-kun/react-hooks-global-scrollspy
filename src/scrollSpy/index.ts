@@ -1,4 +1,4 @@
 export { createScrollSpyContext } from "./createScrollSpyContext";
 export { useScrollSpy } from "./useScrollSpy";
 
-export type { RefElement, ScrollSpyEntry, ScrollSpyParams } from "./type";
+export type { ScrollSpyEntry, ScrollSpyParams } from "./type";

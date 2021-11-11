@@ -1,6 +1,3 @@
-/** References to DOM elements */
-export type RefElement = React.MutableRefObject<Element>;
-
 /**
  * Optional params
  * @property offsetPx - Distance from the basis X-coordinate
@@ -18,7 +15,7 @@ export type ScrollSpyParams = {
  */
 export type ScrollSpyEntry = {
   key: string;
-  value: RefElement;
+  value: React.RefObject<Element>;
 };
 
 /** ScrollSpyActions are used to control registered DOM elements */
@@ -28,7 +25,7 @@ export type ScrollSpyActions = {
    * @param key Key to identify the registered DOM elements
    * @param entry References to DOM elements
    */
-  set: (key: string, entry: RefElement) => void;
+  set: (key: string, entry: React.RefObject<Element>) => void;
 
   /**
    * 'deleteScrollSpyEntry' function is used to delete DOM elements specified by key

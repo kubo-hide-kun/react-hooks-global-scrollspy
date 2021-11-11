@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import {
-  RefElement,
   ScrollSpyEntry,
   ScrollSpyParams,
   ScrollSpyActions,
@@ -21,9 +20,9 @@ export const useScrollSpy = ({
   throttleMs = 100,
 }: ScrollSpyParams = {}): [ScrollSpyEntry | null, ScrollSpyActions] => {
   const [activeEntry, setActiveEntry] = useState<ScrollSpyEntry | null>(null);
-  const [entries, setEntries] = useState<{ [key: string]: RefElement }>({});
+  const [entries, setEntries] = useState<{ [key: string]: React.RefObject<Element> }>({});
 
-  const setScrollSpyEntry = (key: string, entry: RefElement): void => {
+  const setScrollSpyEntry = (key: string, entry: React.RefObject<Element>): void => {
     setEntries((prevState) => ({
       ...prevState,
       [key]: entry,
@@ -45,6 +44,10 @@ export const useScrollSpy = ({
 
     const activeKey = entryKeys.reduce((prevActiveKey, key) => {
       const entryElement = entries[key].current;
+      if (!entryElement) {
+        return prevActiveKey;
+      }
+
       const entryDomRect = entryElement.getBoundingClientRect();
 
       const isPassed = entryDomRect.top + offsetPx < 0;
@@ -53,6 +56,10 @@ export const useScrollSpy = ({
       }
 
       const prevEntryElement = entries[prevActiveKey].current;
+      if (!prevEntryElement) {
+        return key;
+      }
+
       const prevEntryDomRect = prevEntryElement.getBoundingClientRect();
 
       const isHigherThanPrev = entryDomRect.top >= prevEntryDomRect.top;
