@@ -66,6 +66,8 @@ export const useScrollSpy = ({
       return isHigherThanPrev ? key : prevActiveKey;
     });
 
+    console.log(entries, activeKey);
+
     if (!!activeKey) {
       setActiveEntry(null);
       return;
@@ -83,7 +85,7 @@ export const useScrollSpy = ({
     return () => {
       window.removeEventListener("scroll", InvokeUpdate);
     };
-  }, [entries]);
+  }, []);
 
   const actions: ScrollSpyActions = {
     set: setScrollSpyEntry,
