@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ScrollSpyContext } from './ScrollSpyContext';
+import { GlobalScrollSpyContext } from './GlobalScrollSpyContext';
 import { ScrollSpyParams } from "./type";
 import { useScrollSpy } from "./useScrollSpy";
 
@@ -10,15 +10,15 @@ import { useScrollSpy } from "./useScrollSpy";
  * @param ScrollSpyParams.throttleMs Interval of update processing (ms)
  * @returns ScrollSpyProvider - This Provider components provides useScrollSpy return value descendants of this Provider
  */
-export const ScrollSpyProvider: FC<ScrollSpyParams> = ({
+export const GlobalScrollSpyProvider: FC<ScrollSpyParams> = ({
   children,
   offsetPx = 0,
-  throttleMs = 100,
+  throttleMs = 50,
 } = {}) => {
-  const [activeEntry, actions] = useScrollSpy({ offsetPx, throttleMs });
+  const [activeElement, actions] = useScrollSpy({ offsetPx, throttleMs });
   return (
-    <ScrollSpyContext.Provider value={{ activeEntry, actions }}>
+    <GlobalScrollSpyContext.Provider value={{ activeElement, actions }}>
       {children}
-    </ScrollSpyContext.Provider>
+    </GlobalScrollSpyContext.Provider>
   );
 };

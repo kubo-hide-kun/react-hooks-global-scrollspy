@@ -1,13 +1,18 @@
 import { useEffect, useRef } from "react";
-import { ScrollSpyContext } from "./context";
+import { useGlobalScrollSpy, useGlobalScrollSpyOf } from "./scrollSpy";
 
 export const Title = ({ idx }: { idx: number }) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const scrollSpyActions = ScrollSpyContext.getActions();
+  const [activeEntry] = useGlobalScrollSpy();
+  const [isActive, { registerElement }] = useGlobalScrollSpyOf(`title/${idx}`);
 
   useEffect(() => {
-    scrollSpyActions.set(`title/${idx}`, ref);
-  });
+    registerElement(ref);
+  }, [registerElement]);
 
-  return <div ref={ref}>Title {idx}</div>;
+  return (
+    <div ref={ref}>
+      {activeEntry?.key} - Title {idx} - {isActive ? "o" : "x"}
+    </div>
+  );
 };
