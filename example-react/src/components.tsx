@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useGlobalScrollSpy, useGlobalScrollSpyOf } from "./scrollSpy";
+import { useGlobalScrollSpy, useGlobalScrollSpyOf } from "react-hooks-global-scrollspy";
 
 export const Title = ({ idx }: { idx: number }) => {
   const ref = useRef<HTMLDivElement | null>(null);

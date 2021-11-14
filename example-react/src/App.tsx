@@ -1,5 +1,5 @@
 import { Title } from "./components";
-import { GlobalScrollSpyProvider } from "./scrollSpy";
+import { GlobalScrollSpyProvider } from "react-hooks-global-scrollspy";
 import "./App.css";
 
 const App = () => {
