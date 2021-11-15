@@ -6,7 +6,7 @@
     "jsx": "react-jsx",
     "declaration": true,
     "declarationDir": "./lib/typescript",
-    "outDir": "./lib/module",
+    "outDir": "./lib",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
