@@ -1,18 +1,23 @@
-import { useEffect, useRef } from "react";
-import { useGlobalScrollSpy, useGlobalScrollSpyOf } from "react-hooks-global-scrollspy";
+import { useEffect, useRef, FC, Fragment } from "react";
+import { useGlobalScrollSpyOf } from "react-hooks-global-scrollspy";
 
-export const Title = ({ idx }: { idx: number }) => {
+export const Section: FC<{
+  title: string;
+  content: string;
+}> = ({ title, content }) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [activeEntry] = useGlobalScrollSpy();
-  const [isActive, { registerElement }] = useGlobalScrollSpyOf(`title/${idx}`);
+  const [, { registerElement }] = useGlobalScrollSpyOf(title);
 
   useEffect(() => {
     registerElement(ref);
   }, [registerElement]);
 
   return (
-    <div ref={ref}>
-      {activeEntry?.key} - Title {idx} - {isActive ? "o" : "x"}
-    </div>
+    <Fragment>
+      <h2 className="group flex whitespace-pre-wrap" ref={ref}>
+        {title}
+      </h2>
+      <p>{content}</p>
+    </Fragment>
   );
 };
